@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Budget from "./components/Budget";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import { Switch, Route, Link } from "react-router-dom";
+import ReactProtectedRoute from "react-route-protected";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Budget/> */}
+      {/* <Login/> */}
+      {/* <Register/> */}
+
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/Register" exact component={Register} />
+
+        <ReactProtectedRoute
+          path="/budget"
+          component={Budget}
+          authPath="/"
+          isAuthorized={
+            localStorage.getItem("userdetails") !== null ? true : false
+          }
+        />
+      </Switch>
     </div>
   );
 }
